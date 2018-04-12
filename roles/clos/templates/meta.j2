@@ -1,0 +1,84 @@
+  <MetadataDeclaration>
+    <Devices xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+      <a:DeviceMetadata>
+        <a:Name>{{ item.hostname }}</a:Name>
+        <a:Properties>
+          <a:DeviceProperty>
+            <a:Name>DeploymentId</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>1</a:Value>
+          </a:DeviceProperty>
+          <a:DeviceProperty>
+            <a:Name>QosProfile</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>Profile0</a:Value>
+          </a:DeviceProperty>
+{% if dhcp_servers %}
+          <a:DeviceProperty>
+            <a:Name>DhcpResources</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ dhcp_servers }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if ntp_servers %}
+          <a:DeviceProperty>
+            <a:Name>NtpResources</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ ntp_servers }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if radius_servers %}
+          <a:DeviceProperty>
+            <a:Name>RadiusResources</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ radius_servers }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if snmp_servers %}
+          <a:DeviceProperty>
+            <a:Name>SnmpResources</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ snmp_servers }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if syslog_servers %}
+          <a:DeviceProperty>
+            <a:Name>SyslogResources</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ syslog_servers }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if tacacs_group %}
+          <a:DeviceProperty>
+            <a:Name>TacacsGroup</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ tacacs_group }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if tacacs_servers %}
+          <a:DeviceProperty>
+            <a:Name>TacacsServer</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ tacacs_servers }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if forced_mgmt_routes %}
+          <a:DeviceProperty>
+            <a:Name>ForcedMgmtRoutes</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ forced_mgmt_routes }}</a:Value>
+          </a:DeviceProperty>
+{% endif %}
+{% if erspan_dest %}
+          <a:DeviceProperty>
+            <a:Name>ErspanDestinationIpv4</a:Name>
+            <a:Reference i:nil="true"/>
+            <a:Value>{{ erspan_dest }}</a:Value>
+         </a:DeviceProperty>
+{% endif %}
+        </a:Properties>
+      </a:DeviceMetadata>
+    </Devices>
+    <Properties xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+  </MetadataDeclaration>
+

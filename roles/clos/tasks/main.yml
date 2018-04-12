@@ -1,0 +1,11 @@
+---
+- name: Generating Clos config with T1 uplink as L3 physical links
+  include: t1-l3.yml
+  tags: t1
+
+- name: Generating Clos config with T1 uplink as L3 Portchannel links
+  include: t1-lag.yml
+  tags: t1-lag
+
+
+

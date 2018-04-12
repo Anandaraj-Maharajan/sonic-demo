@@ -1,0 +1,35 @@
+  <PngDec>
+    <DeviceInterfaceLinks>
+{% set if_index = 0 %}
+{% for dev in t1 %}
+{% set t0index = item.t0index %}
+      <DeviceLinkBase>
+        <ElementType>DeviceInterfaceLink</ElementType>
+        <EndDevice>{{ dev.hostname }}</EndDevice>
+        <EndPort>{{ port_alias[t1_downlinks[t0index]] }}</EndPort>
+        <StartDevice>{{ item.hostname }}</StartDevice>
+        <StartPort>{{ port_alias[uplinks[if_index]] }}</StartPort>
+      </DeviceLinkBase>
+{% set if_index = if_index + 1 %}
+{% endfor %}
+    </DeviceInterfaceLinks>
+    <Devices>
+      <Device i:type="{{ devtype }}">
+        <Hostname>{{ item.hostname }}</Hostname>
+        <HwSku>{{ hwsku }}</HwSku>
+        <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>{{ item.mgmtaddr | ipaddr('address') }}</a:IPPrefix>
+        </ManagementAddress>
+      </Device>
+{% for dev in t1 %}
+      <Device i:type="{{ peerdevtype }}">
+         <Hostname>{{ dev.hostname }}</Hostname>
+         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>{{ dev.mgmtaddr | ipaddr('address') }}</a:IPPrefix>
+         </ManagementAddress>
+         <HwSku>{{ hwsku }}</HwSku>
+      </Device>
+{% endfor %}
+    </Devices>
+  </PngDec>
+

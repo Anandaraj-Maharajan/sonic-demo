@@ -1,0 +1,123 @@
+  <DpgDec>
+    <DeviceDataPlaneInfo>
+      <IPSecTunnels/>
+      <LoopbackIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+        <a:LoopbackIPInterface>
+          <Name>HostIP</Name>
+          <AttachTo>Loopback0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.loopback }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.loopback }}</a:PrefixStr>
+        </a:LoopbackIPInterface>
+        <a:LoopbackIPInterface>
+          <Name>HostIP1</Name>
+          <AttachTo>Loopback0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.loopback6 }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.loopback6 }}</a:PrefixStr>
+        </a:LoopbackIPInterface>
+      </LoopbackIPInterfaces>
+      <ManagementIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+        <a:ManagementIPInterface>
+          <Name>HostIP</Name>
+          <AttachTo>eth0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.mgmtaddr }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.mgmtaddr }}</a:PrefixStr>
+        </a:ManagementIPInterface>
+        <a:ManagementIPInterface>
+          <Name>V6HostIP</Name>
+          <AttachTo>eth0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.mgmtaddr6 }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.mgmtaddr6 }}</a:PrefixStr>
+        </a:ManagementIPInterface>
+      </ManagementIPInterfaces>
+      <ManagementVIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+      <MplsInterfaces/>
+      <MplsTeInterfaces/>
+      <RsvpInterfaces/>
+      <Hostname>{{ item.hostname }}</Hostname>
+      <PortChannelInterfaces>
+{% for index in range(uplinks | length) %}
+        <PortChannel>
+          <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
+          <AttachTo>{{ port_alias[uplinks[index]] }}</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+{% endfor %}
+      </PortChannelInterfaces>
+      <VlanInterfaces>
+        <VlanInterface>
+{% set vlanid = vlan + item.t0index %}
+          <Name>Vlan{{vlanid}}</Name>
+           <AttachTo>{% for index in range(downlinks | length) %}
+{{port_alias[downlinks[index]]}}
+{%- if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
+          <NoDhcpRelay>False</NoDhcpRelay>
+          <StaticDHCPRelay>0.0.0.0/0</StaticDHCPRelay>
+          <Type i:nil="true"/>
+          <DhcpRelays>{{ dhcp_servers }}</DhcpRelays>
+          <VlanID>{{vlanid}}</VlanID>
+          <Tag>{{vlanid}}</Tag>
+          <Subnets>{{ vlansupernet | ipsubnet(24, item.t0index) }}</Subnets>
+        </VlanInterface>
+      </VlanInterfaces>
+      <IPInterfaces>
+{% for index in range(uplinks | length) %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
+{% set lagsubnet = lagsupernet | ipsubnet (24, index) %}
+          <Prefix>{{ lagsubnet | ipsubnet (31, item.t0index) }}</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
+          <Prefix>{{ item.lagaddr6[index] }} </Prefix>
+        </IPInterface>
+{% endfor %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>Vlan1000</AttachTo>
+          <Prefix>{{ vlansupernet | ipsubnet(24, item.t0index) | ipaddr('1') }}</Prefix>
+        </IPInterface>
+      </IPInterfaces>
+      <DataAcls/>
+      <AclInterfaces>
+        <AclInterface>
+          <InAcl>SNMP_ACL</InAcl>
+          <AttachTo>SNMP</AttachTo>
+          <Type>SNMP</Type>
+        </AclInterface>
+        <AclInterface>
+          <AttachTo>ERSPAN</AttachTo>
+          <InAcl>Everflow</InAcl>
+          <Type>Everflow</Type>
+        </AclInterface>
+          <AclInterface>
+          <AttachTo>VTY_LINE</AttachTo>
+          <InAcl>ssh-only</InAcl>
+          <Type>SSH</Type>
+        </AclInterface>
+        <AclInterface>
+          <AttachTo>{% for index in range(downlinks | length) %}
+{{ port_alias[index] }}{% if not loop.last %};{% endif %}
+{% endfor %}
+{% for index in range(uplinks | length) %}
+{{ port_alias[uplinks[index]] }}{% if not loop.last %};{% endif %}
+{% endfor -%}</AttachTo>
+          <InAcl>DataAcl</InAcl>
+          <Type>DataPlane</Type>
+        </AclInterface>
+      </AclInterfaces>
+      <DownstreamSummaries/>
+      <DownstreamSummarySet xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+    </DeviceDataPlaneInfo>
+  </DpgDec>
+

@@ -1,0 +1,14 @@
+---
+- include_vars: pod.yml
+
+- include_vars: "{{ item }}"
+  with_items:
+    - Z9100.yml
+    - T0-28D-4U.yml
+  when: hwsku == 'Z9100'
+
+- name: Topology type
+  template: src=t0.j2 dest=/home/anandaraj/sonic-demo/minigraph/{{item.hostname}}.xml
+  with_items: "{{ t0 }}"
+
+- name: 

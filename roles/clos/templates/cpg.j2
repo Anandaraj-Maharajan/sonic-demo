@@ -1,0 +1,66 @@
+  <CpgDec>
+    <IsisRouters xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+    <PeeringSessions>
+{% for dev in t1 %}
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>{{ item.hostname }}</StartRouter>
+{% set lagsubnet = lagsupernet | ipsubnet (24, loop.index0) %}
+{% set lagsubnet31 = lagsubnet | ipsubnet (31, item.t0index) %}
+        <StartPeer>{{ lagsubnet31 | ipsubnet (32, 0) | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ dev.hostname }}</EndRouter>
+        <EndPeer>{{ lagsubnet | ipsubnet (31, item.t0index) | ipaddr('1') | ipaddr('address') }}</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>{{ item.hostname }}</StartRouter>
+        <StartPeer>{{ item.lagaddr6[loop.index0] | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ dev.hostname }}</EndRouter>
+        <EndPeer>{{ item.lagaddr6[loop.index0] | ipaddr('2') | ipaddr('address') }}</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+{% endfor %}
+    </PeeringSessions>
+    <Routers xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+      <a:BGPRouterDeclaration>
+        <a:ASN>{{ t0asnumber + item.t0index }}</a:ASN>
+        <a:Hostname>{{ item.hostname }}</a:Hostname>
+        <a:Peers>
+{% for index in range(uplinks | length)  %}
+          <BGPPeer>
+{% set lagsubnet = lagsupernet | ipsubnet (24, loop.index0) %}
+{% set lagsubnet31 = lagsubnet | ipsubnet (31, item.t0index) %}
+            <Address>{{ lagsubnet31 | ipsubnet (32, 0) | ipaddr('address') }}</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+{% endfor %}
+{% if 'tor' in devtype | lower %}
+          <BGPPeer i:type="a:BGPPeerPassive">
+            <ElementType>BGPPeer</ElementType>
+            <Address>10.1.0.32</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+            <a:Name>BGPAdvertiseVIP</a:Name>
+            <a:PeersRange>{{ vlansupernet | ipsubnet(24, item.t0index) }}</a:PeersRange>
+          </BGPPeer>
+{% endif %}
+        </a:Peers>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+{% for dev in t1 %}
+      <a:BGPRouterDeclaration>
+        <a:ASN>{{ t1asnumber }}</a:ASN>
+        <a:Hostname>{{ dev.hostname }}</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+{% endfor %}
+    </Routers>
+  </CpgDec>
+

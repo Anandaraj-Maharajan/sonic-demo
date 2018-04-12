@@ -1,0 +1,13 @@
+---
+hwsku: Z9100
+syslog_servers: 10.0.0.5;10.0.0.6
+dhcp_servers: 192.0.0.1;192.0.0.2;192.0.0.3;192.0.0.4
+forced_mgmt_routes: 0.0.0.0/0;10.11.161.254
+ntp_servers: 23.92.29.245;204.2.134.164
+snmp_servers: 10.0.0.9
+tacacs_servers: 10.0.0.9;10.0.0.8
+radius_servers:
+erspan_dest: 10.0.0.7
+tacacs_group: testlab
+
+
