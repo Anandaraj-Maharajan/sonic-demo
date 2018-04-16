@@ -3,38 +3,66 @@
     <DeviceInterfaceLinks>
       <DeviceLinkBase>
         <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-1</EndDevice>
+        <EndDevice>T2-1</EndDevice>
         <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
+        <StartDevice>T1-2</StartDevice>
         <StartPort>hundredGigE1/29</StartPort>
       </DeviceLinkBase>
       <DeviceLinkBase>
         <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-2</EndDevice>
+        <EndDevice>T2-2</EndDevice>
         <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
+        <StartDevice>T1-2</StartDevice>
         <StartPort>hundredGigE1/30</StartPort>
+      </DeviceLinkBase>
+      <DeviceLinkBase>
+        <ElementType>DeviceInterfaceLink</ElementType>
+        <EndDevice>T0-1</EndDevice>
+        <EndPort>hundredGigE1/30</EndPort>
+        <StartDevice>T1-2</StartDevice>
+        <StartPort>hundredGigE1/1</StartPort>
+      </DeviceLinkBase>
+      <DeviceLinkBase>
+        <ElementType>DeviceInterfaceLink</ElementType>
+        <EndDevice>T0-2</EndDevice>
+        <EndPort>hundredGigE1/30</EndPort>
+        <StartDevice>T1-2</StartDevice>
+        <StartPort>hundredGigE1/2</StartPort>
       </DeviceLinkBase>
     </DeviceInterfaceLinks>
     <Devices>
-      <Device i:type="ToRRouter">
-        <Hostname>T0-2</Hostname>
+      <Device i:type="LeafRouter">
+        <Hostname>T1-2</Hostname>
         <HwSku>Force10-Z9100</HwSku>
         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.161.37</a:IPPrefix>
+           <a:IPPrefix>10.11.150.102</a:IPPrefix>
         </ManagementAddress>
       </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-1</Hostname>
+      <Device i:type="SpineRouter">
+         <Hostname>T2-1</Hostname>
          <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.150.101</a:IPPrefix>
+           <a:IPPrefix>10.11.150.201</a:IPPrefix>
          </ManagementAddress>
          <HwSku>Force10-Z9100</HwSku>
       </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-2</Hostname>
+      <Device i:type="SpineRouter">
+         <Hostname>T2-2</Hostname>
          <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.150.102</a:IPPrefix>
+           <a:IPPrefix>10.11.150.202</a:IPPrefix>
+         </ManagementAddress>
+         <HwSku>Force10-Z9100</HwSku>
+      </Device>
+      <Device i:type="ToRRouter">
+         <Hostname>T0-1</Hostname>
+         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>10.11.161.35</a:IPPrefix>
+         </ManagementAddress>
+         <HwSku>Force10-Z9100</HwSku>
+      </Device>
+      <Device i:type="ToRRouter">
+         <Hostname>T0-2</Hostname>
+         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>10.11.161.37</a:IPPrefix>
          </ManagementAddress>
          <HwSku>Force10-Z9100</HwSku>
       </Device>
@@ -470,7 +498,7 @@
   <MetadataDeclaration>
     <Devices xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
       <a:DeviceMetadata>
-        <a:Name>T0-2</a:Name>
+        <a:Name>T1-2</a:Name>
         <a:Properties>
           <a:DeviceProperty>
             <a:Name>DeploymentId</a:Name>
@@ -527,6 +555,7 @@
     </Devices>
     <Properties xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
   </MetadataDeclaration>
-  <Hostname>T0-2</Hostname>
+  <Hostname>T1-2</Hostname>
   <HwSku>Force10-Z9100</HwSku>
 </DeviceMiniGraph>
+
