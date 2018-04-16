@@ -1,6 +1,6 @@
 devtype: ToRRouter
 peerdevtype: LeafRouter
-downlinks:
+t0_downlinks:
   - 0
   - 1
   - 2
@@ -29,64 +29,19 @@ downlinks:
   - 25
   - 26
   - 27
-uplinks:
+t0_uplinks:
   - 28
   - 29
-  - 30
-  - 31
 
 t1_downlinks:
   - 0
   - 1
 
-t0:
-  - hostname: T0-1
-    t0index: 0
-    mgmtaddr: 10.11.161.35/24
-    mgmtaddr6: FC00:2::1/128
-    loopback: 10.1.0.1/32
-    loopback6: FC00:1::1/128
-    lagaddr6: 
-      - 2018:2001::1/126
-      - 2018:2002::1/126
-      - 2018:2003::1/126
-      - 2018:2004::1/126
+t1_uplinks:
+  - 28
+  - 29 
 
-  - hostname: T0-2
-    t0index: 1
-    mgmtaddr: 10.11.161.37/24
-    mgmtaddr6: FC00:2::2/128
-    loopback: 10.1.0.2/32
-    loopback6: FC00:1::2/128
-    lagaddr6:
-      - 2018:2001::5/126
-      - 2018:2002::5/126
-      - 2018:2003::5/126
-      - 2018:2004::5/126
-
-t1:
-  - hostname: T1-1
-    t1index: 0
-    mgmtaddr: 10.11.150.101
-
-  - hostname: T1-2
-    t1index: 1
-    mgmtaddr: 10.11.150.102
-
-  - hostname: T1-3
-    t1index: 2
-    mgmtaddr: 10.11.150.103
-
-  - hostname: T1-4
-    t1index: 3
-    mgmtaddr: 10.11.150.104
-
-
-
-vlan: 1001
-t0asnumber: 64601
-t1asnumber: 65000
-vlansupernet: 192.168.0.0/16
-lagsupernet: 10.0.0.0/16
-
+t2_downlinks:
+  - 0
+  - 1
 

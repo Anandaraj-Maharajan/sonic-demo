@@ -10,4 +10,67 @@ radius_servers:
 erspan_dest: 10.0.0.7
 tacacs_group: testlab
 
+t0:
+  - hostname: T0-1
+    tierindex: 0
+    devtype: ToRRouter
+    devtypeup: LeafRouter
+    mgmtaddr: 10.11.161.35/24
+    mgmtaddr6: FC00:2::1/128
+    loopback: 10.1.0.1/32
+    loopback6: FC00:1::1/128
+    lagaddr6:
+      - 2018:2001::1/126
+      - 2018:2002::1/126
+      - 2018:2003::1/126
+      - 2018:2004::1/126
+
+  - hostname: T0-2
+    tierindex: 1
+    devtype: ToRRouter
+    devtypeup: LeafRouter
+    mgmtaddr: 10.11.161.37/24
+    mgmtaddr6: FC00:2::2/128
+    loopback: 10.1.0.2/32
+    loopback6: FC00:1::2/128
+    lagaddr6:
+      - 2018:2001::5/126
+      - 2018:2002::5/126
+      - 2018:2003::5/126
+      - 2018:2004::5/126
+
+t1:
+  - hostname: T1-1
+    tierindex: 0
+    devtype: LeafRouter
+    devtypeup: SpineRouter
+    devtypedown: ToRRouter
+    mgmtaddr: 10.11.150.101/24
+
+  - hostname: T1-2
+    tierindex: 1
+    devtype: LeafRouter
+    devtypeup: SpineRouter
+    devtypedown: ToRRouter
+    mgmtaddr: 10.11.150.102/24
+
+t2: 
+  - hostname: T2-1
+    tierindex: 0
+    devtype: SpineRouter
+    devtypedown: LeafRouter
+    mgmtaddr: 10.11.150.201/24
+
+  - hostname: T2-2
+    tierindex: 1
+    devtype: SpineRouter
+    devtypedown: LeafRouter
+    mgmtaddr: 10.11.150.202/24
+
+
+vlan: 1001
+t0asnumber: 64601
+t1asnumber: 65000
+vlansupernet: 192.168.0.0/16
+lagsupernet: 10.0.0.0/16
 
