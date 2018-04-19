@@ -10,34 +10,39 @@ radius_servers:
 erspan_dest: 10.0.0.7
 tacacs_group: testlab
 
+t0vlan: 1001
+t0asnumber: 64601
+t1asnumber: 65000
+t2asnumber: 65500
+
 t0:
   - hostname: T0-1
     tierindex: 0
     devtype: ToRRouter
     devtypeup: LeafRouter
-    mgmtaddr: 10.11.161.35/24
+    mgmtaddr: 10.11.162.43/24
     mgmtaddr6: FC00:2::1/128
-    loopback: 10.1.0.1/32
+    loopback: 10.12.0.1/32
     loopback6: FC00:1::1/128
-    lagaddr6:
-      - 2018:2001::1/126
-      - 2018:2002::1/126
-      - 2018:2003::1/126
-      - 2018:2004::1/126
+    downaddr: 192.168.0.0/16
+    upaddr: 10.0.0.0/16
+    upaddr6:
+      - 2018:1001::1/126
+      - 2018:1002::1/126
 
   - hostname: T0-2
     tierindex: 1
     devtype: ToRRouter
     devtypeup: LeafRouter
-    mgmtaddr: 10.11.161.37/24
+    mgmtaddr: 10.11.162.42/24
     mgmtaddr6: FC00:2::2/128
-    loopback: 10.1.0.2/32
+    loopback: 10.12.0.2/32
     loopback6: FC00:1::2/128
-    lagaddr6:
-      - 2018:2001::5/126
-      - 2018:2002::5/126
-      - 2018:2003::5/126
-      - 2018:2004::5/126
+    downaddr: 192.168.0.0/16
+    upaddr: 10.0.0.0/16
+    upaddr6:
+      - 2018:1001::5/126
+      - 2018:1002::5/126
 
 t1:
   - hostname: T1-1
@@ -45,14 +50,36 @@ t1:
     devtype: LeafRouter
     devtypeup: SpineRouter
     devtypedown: ToRRouter
-    mgmtaddr: 10.11.150.101/24
+    mgmtaddr: 10.11.162.41/24
+    mgmtaddr6: FC00:2::101/128
+    loopback: 10.12.0.101/32
+    loopback6: FC00:1::101/128
+    downaddr: 10.0.0.0/16
+    upaddr: 10.1.0.0/16
+    downaddr6:
+      - 2018:1001::2/126
+      - 2018:1001::6/126
+    upaddr6:
+      - 2018:2001::1/126
+      - 2018:2002::1/126
 
   - hostname: T1-2
     tierindex: 1
     devtype: LeafRouter
     devtypeup: SpineRouter
     devtypedown: ToRRouter
-    mgmtaddr: 10.11.150.102/24
+    mgmtaddr: 10.11.162.40/24
+    mgmtaddr6: FC00:2::102/128
+    loopback: 10.12.0.102/32
+    loopback6: FC00:1::102/128
+    downaddr: 10.0.0.0/16
+    upaddr: 10.1.0.0/16
+    downaddr6:
+      - 2018:1002::2/126
+      - 2018:1002::6/126
+    upaddr6:
+      - 2018:2001::1/126
+      - 2018:2002::1/126
 
 t2: 
   - hostname: T2-1
@@ -67,10 +94,4 @@ t2:
     devtypedown: LeafRouter
     mgmtaddr: 10.11.150.202/24
 
-
-vlan: 1001
-t0asnumber: 64601
-t1asnumber: 65000
-vlansupernet: 192.168.0.0/16
-lagsupernet: 10.0.0.0/16
 

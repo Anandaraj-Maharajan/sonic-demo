@@ -43,20 +43,31 @@
       <RsvpInterfaces/>
       <Hostname>{{ item.hostname }}</Hostname>
       <PortChannelInterfaces>
-{% for index in range(uplinks | length) %}
+{% if item.devtype == 'ToRRouter' %}
+{% for index in range(t0_uplinks | length) %}
         <PortChannel>
           <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
-          <AttachTo>{{ port_alias[uplinks[index]] }}</AttachTo>
+          <AttachTo>{{ port_alias[t0_uplinks[index]] }}</AttachTo>
           <SubInterface/>
         </PortChannel>
 {% endfor %}
+{% elif item.devtype == 'LeafRouter' %}
+{% for index in range(t1_downlinks | length) %}
+        <PortChannel>
+          <Name>PortChannel{{ ((index+101)|string).zfill(4) }}</Name>
+          <AttachTo>{{ port_alias[t1_downlinks[index]] }}</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+{% endfor %}
+{% endif %}
       </PortChannelInterfaces>
       <VlanInterfaces>
+{% if item.devtype == 'ToRRouter' %}
         <VlanInterface>
-{% set vlanid = vlan + item.t0index %}
+{% set vlanid = t0vlan + item.tierindex %}
           <Name>Vlan{{vlanid}}</Name>
-           <AttachTo>{% for index in range(downlinks | length) %}
-{{port_alias[downlinks[index]]}}
+           <AttachTo>{% for index in range(t0_downlinks | length) %}
+{{port_alias[t0_downlinks[index]]}}
 {%- if not loop.last %};{% endif %}
 {% endfor %}</AttachTo>
           <NoDhcpRelay>False</NoDhcpRelay>
@@ -65,28 +76,58 @@
           <DhcpRelays>{{ dhcp_servers }}</DhcpRelays>
           <VlanID>{{vlanid}}</VlanID>
           <Tag>{{vlanid}}</Tag>
-          <Subnets>{{ vlansupernet | ipsubnet(24, item.t0index) }}</Subnets>
+          <Subnets>{{ item.downaddr | ipsubnet(24, item.tierindex) }}</Subnets>
         </VlanInterface>
+{% endif %}
       </VlanInterfaces>
       <IPInterfaces>
-{% for index in range(uplinks | length) %}
+{% if item.devtype == 'ToRRouter' %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>Vlan1000</AttachTo>
+          <Prefix>{{ item.downaddr | ipsubnet(24, item.tierindex) | ipaddr('1') }}</Prefix>
+        </IPInterface>
+{% for index in range(t0_uplinks | length) %}
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
-{% set lagsubnet = lagsupernet | ipsubnet (24, index) %}
-          <Prefix>{{ lagsubnet | ipsubnet (31, item.t0index) }}</Prefix>
+{% set lagsubnet = item.upaddr | ipsubnet (24, index) %}
+          <Prefix>{{ lagsubnet | ipsubnet (31, item.tierindex) }}</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
           <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
-          <Prefix>{{ item.lagaddr6[index] }} </Prefix>
+          <Prefix>{{ item.upaddr6[index] }} </Prefix>
         </IPInterface>
 {% endfor %}
+{% elif item.devtype == 'LeafRouter' %}
+{% for index in range(t1_downlinks | length) %}
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>Vlan1000</AttachTo>
-          <Prefix>{{ vlansupernet | ipsubnet(24, item.t0index) | ipaddr('1') }}</Prefix>
+          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+{% set lagsubnet = item.downaddr | ipsubnet (24, item.tierindex) %}
+		  <Prefix>{{ lagsubnet | ipsubnet (31, index) | ipaddr('1') }}</Prefix>
         </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+          <Prefix>{{ item.downaddr6[index] }} </Prefix>
+        </IPInterface>
+{% endfor %}
+{% for index in range(t1_uplinks | length) %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+{% set lagsubnet = item.upaddr | ipsubnet (24, item.tierindex) %}
+          <Prefix>{{ lagsubnet | ipsubnet (31, index) }}</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+          <Prefix>{{ item.upaddr6[index] }} </Prefix>
+        </IPInterface>
+{% endfor %}
+{% endif %}
       </IPInterfaces>
       <DataAcls/>
       <AclInterfaces>
@@ -106,10 +147,16 @@
           <Type>SSH</Type>
         </AclInterface>
         <AclInterface>
+{% if item.devtype == 'ToRRouter' %}
+{% set downlinks = t0_downlinks %}
+{% set uplinks = t0_uplinks %}
+{% elif item.devtype == 'LeafRouter' %}
+{% set downlinks = t1_downlinks %}
+{% set uplinks = t1_uplinks %}
+{% endif %}
           <AttachTo>{% for index in range(downlinks | length) %}
 {{ port_alias[index] }}{% if not loop.last %};{% endif %}
-{% endfor %}
-{% for index in range(uplinks | length) %}
+{% endfor %};{% for index in range(uplinks | length) %}
 {{ port_alias[uplinks[index]] }}{% if not loop.last %};{% endif %}
 {% endfor -%}</AttachTo>
           <InAcl>DataAcl</InAcl>
