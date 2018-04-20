@@ -1,4 +1,265 @@
 <DeviceMiniGraph xmlns="Microsoft.Search.Autopilot.Evolution" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+  <CpgDec>
+    <IsisRouters xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+    <PeeringSessions>
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>10.1.0.0</StartPeer>
+        <EndRouter>T2-1</EndRouter>
+        <EndPeer>10.1.0.1</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>2018:2001::1</StartPeer>
+        <EndRouter>T2-1</EndRouter>
+        <EndPeer>2018:2001::2</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>10.1.1.0</StartPeer>
+        <EndRouter>T2-2</EndRouter>
+        <EndPeer>10.1.1.1</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>2018:2002::1</StartPeer>
+        <EndRouter>T2-2</EndRouter>
+        <EndPeer>2018:2002::2</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>10.0.0.1</StartPeer>
+        <EndRouter>T0-1</EndRouter>
+        <EndPeer>10.0.0.0</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>2018:1001::2</StartPeer>
+        <EndRouter>T0-1</EndRouter>
+        <EndPeer>2018:1001::1</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>10.0.0.3</StartPeer>
+        <EndRouter>T0-2</EndRouter>
+        <EndPeer>10.0.0.2</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>T1-1</StartRouter>
+        <StartPeer>2018:1001::6</StartPeer>
+        <EndRouter>T0-2</EndRouter>
+        <EndPeer>2018:1001::5</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+    </PeeringSessions>
+    <Routers xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+      <a:BGPRouterDeclaration>
+        <a:ASN>65000</a:ASN>
+        <a:Hostname>T1-1</a:Hostname>
+        <a:Peers>
+          <BGPPeer>
+            <Address>10.0.0.1</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+          <BGPPeer>
+            <Address>10.0.1.1</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+          <BGPPeer>
+            <Address>10.1.0.0</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+          <BGPPeer>
+            <Address>10.1.1.0</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+        </a:Peers>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+      <a:BGPRouterDeclaration>
+        <a:ASN>64601</a:ASN>
+        <a:Hostname>T0-1</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+      <a:BGPRouterDeclaration>
+        <a:ASN>64602</a:ASN>
+        <a:Hostname>T0-2</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+      <a:BGPRouterDeclaration>
+        <a:ASN>65500</a:ASN>
+        <a:Hostname>T2-1</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+      <a:BGPRouterDeclaration>
+        <a:ASN>65500</a:ASN>
+        <a:Hostname>T2-2</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+    </Routers>
+  </CpgDec>
+  <DpgDec>
+    <DeviceDataPlaneInfo>
+      <IPSecTunnels/>
+      <LoopbackIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+        <a:LoopbackIPInterface>
+          <Name>HostIP</Name>
+          <AttachTo>Loopback0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>10.12.0.101/32</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>10.12.0.101/32</a:PrefixStr>
+        </a:LoopbackIPInterface>
+        <a:LoopbackIPInterface>
+          <Name>HostIP1</Name>
+          <AttachTo>Loopback0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>FC00:1::101/128</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>FC00:1::101/128</a:PrefixStr>
+        </a:LoopbackIPInterface>
+      </LoopbackIPInterfaces>
+      <ManagementIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+        <a:ManagementIPInterface>
+          <Name>HostIP</Name>
+          <AttachTo>eth0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>10.11.162.41/24</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>10.11.162.41/24</a:PrefixStr>
+        </a:ManagementIPInterface>
+        <a:ManagementIPInterface>
+          <Name>V6HostIP</Name>
+          <AttachTo>eth0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>FC00:2::101/128</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>FC00:2::101/128</a:PrefixStr>
+        </a:ManagementIPInterface>
+      </ManagementIPInterfaces>
+      <ManagementVIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+      <MplsInterfaces/>
+      <MplsTeInterfaces/>
+      <RsvpInterfaces/>
+      <Hostname>T1-1</Hostname>
+      <PortChannelInterfaces>
+        <PortChannel>
+          <Name>PortChannel0101</Name>
+          <AttachTo>hundredGigE1/1</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+        <PortChannel>
+          <Name>PortChannel0102</Name>
+          <AttachTo>hundredGigE1/2</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+      </PortChannelInterfaces>
+      <VlanInterfaces>
+      </VlanInterfaces>
+      <IPInterfaces>
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>PortChannel0101</AttachTo>
+		  <Prefix>10.0.0.1/31</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>PortChannel0101</AttachTo>
+          <Prefix>2018:1001::2/126 </Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>PortChannel0102</AttachTo>
+		  <Prefix>10.0.0.3/31</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>PortChannel0102</AttachTo>
+          <Prefix>2018:1001::6/126 </Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>hundredGigE1/29</AttachTo>
+          <Prefix>10.1.0.0/31</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>hundredGigE1/29</AttachTo>
+          <Prefix>2018:2001::1/126 </Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>hundredGigE1/30</AttachTo>
+          <Prefix>10.1.0.2/31</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>hundredGigE1/30</AttachTo>
+          <Prefix>2018:2002::1/126 </Prefix>
+        </IPInterface>
+      </IPInterfaces>
+      <DataAcls/>
+      <AclInterfaces>
+        <AclInterface>
+          <InAcl>SNMP_ACL</InAcl>
+          <AttachTo>SNMP</AttachTo>
+          <Type>SNMP</Type>
+        </AclInterface>
+        <AclInterface>
+          <AttachTo>ERSPAN</AttachTo>
+          <InAcl>Everflow</InAcl>
+          <Type>Everflow</Type>
+        </AclInterface>
+          <AclInterface>
+          <AttachTo>VTY_LINE</AttachTo>
+          <InAcl>ssh-only</InAcl>
+          <Type>SSH</Type>
+        </AclInterface>
+        <AclInterface>
+          <AttachTo>hundredGigE1/1;hundredGigE1/2;hundredGigE1/29;hundredGigE1/30</AttachTo>
+          <InAcl>DataAcl</InAcl>
+          <Type>DataPlane</Type>
+        </AclInterface>
+      </AclInterfaces>
+      <DownstreamSummaries/>
+      <DownstreamSummarySet xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+    </DeviceDataPlaneInfo>
+  </DpgDec>
   <PngDec>
     <DeviceInterfaceLinks>
       <DeviceLinkBase>
@@ -35,7 +296,7 @@
         <Hostname>T1-1</Hostname>
         <HwSku>Force10-Z9100</HwSku>
         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.150.101</a:IPPrefix>
+           <a:IPPrefix>10.11.162.41</a:IPPrefix>
         </ManagementAddress>
       </Device>
       <Device i:type="SpineRouter">
@@ -55,14 +316,14 @@
       <Device i:type="ToRRouter">
          <Hostname>T0-1</Hostname>
          <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.161.35</a:IPPrefix>
+           <a:IPPrefix>10.11.162.43</a:IPPrefix>
          </ManagementAddress>
          <HwSku>Force10-Z9100</HwSku>
       </Device>
       <Device i:type="ToRRouter">
          <Hostname>T0-2</Hostname>
          <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.161.37</a:IPPrefix>
+           <a:IPPrefix>10.11.162.42</a:IPPrefix>
          </ManagementAddress>
          <HwSku>Force10-Z9100</HwSku>
       </Device>
@@ -558,4 +819,3 @@
   <Hostname>T1-1</Hostname>
   <HwSku>Force10-Z9100</HwSku>
 </DeviceMiniGraph>
-
