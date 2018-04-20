@@ -12,4 +12,8 @@ minigraph files:
   stage: generate
   script: 
     - ansible-playbook generate_config.yml --tags t1 --diff 
+<<<<<<< HEAD
     - ansible-playbook -i hosts deploy.yml 
+=======
+    - ansible-playbook deploy.yml 
+>>>>>>> 4b1c2eedad62e1ec0f1f256cef9f835be5b7e4c4
