@@ -1,0 +1,12 @@
+--- 
+- name: Generate and deploy the configuration in the switches
+  hosts: clos
+  remote_user: admin
+  become: yes
+  become_method: sudo
+
+  tasks:
+    - name: copying the minigraph files to the switch
+      copy: 
+        src: minigraph/{{inventory_hostname}}.xml
+        dest: /etc/sonic/minigraph.xml
