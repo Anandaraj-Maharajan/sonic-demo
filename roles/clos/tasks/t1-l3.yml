@@ -8,10 +8,10 @@
   when: hwsku == 'Force10-Z9100'
 
 - name: Generating minigraph from T0 template
-  template: src=minigraph.j2 dest=/home/anandaraj/sonic-demo/minigraph/{{item.hostname}}.xml
+  template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
   with_items: "{{ t0 }}"
 
 - name: Generating minigraph from T1 template
-  template: src=minigraph.j2 dest=/home/anandaraj/sonic-demo/minigraph/{{item.hostname}}.xml
+  template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
   with_items: "{{ t1 }}"
 
