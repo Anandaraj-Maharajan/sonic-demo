@@ -1,6 +1,6 @@
 # SONiC Custom Minigraphs
 
-# Description
+## Description
 This repo is used to generate & deploy custom minigraph configurations for 
 devices running SONiC
 
@@ -8,17 +8,19 @@ devices running SONiC
 ansible-playbook generate_config.yml -e topology=t1/t1-lag -e platform=Z9100
 ansible-playbook deploy.yml -i hosts
 
+## Ansible folder tree
+
 --- deploy.yml
 
 |-- generate_config.yml
 
 |-- group_vars
 
-|       |-- Z9100.yml       # Add more platform files in this location
+|       |-- Z9100.yml                      # Add more platform files in this location
 
-|-- hosts                   # inventory file
+|-- hosts                                  # inventory file
 
-|-- minigraph               # Minigraph output file location
+|-- minigraph                              # Minigraph output file location
 
 |   |-- T0-1.xml
 
@@ -30,11 +32,11 @@ ansible-playbook deploy.yml -i hosts
 
 |-- roles
 
-    |-- clos
+     |-- clos
 
         |-- tasks
 
-        |   |-- main.yml
+        |   |-- main.yml                  # Update this file according to the additional platforms added
 
         |-- templates
 
@@ -52,7 +54,7 @@ ansible-playbook deploy.yml -i hosts
 
         |-- vars
 
-            |-- pod.yml     # Change this file according to physical topology
+            |-- pod.yml              # Change this file according to physical topology
 
-            |-- T0-28D-4U.yml # Variables related to the given topology
+            |-- T0-28D-4U.yml        # Variables related to the given topology
 
