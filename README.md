@@ -4,7 +4,7 @@
 This repo is used to generate & deploy custom minigraph configurations for devices running SONiC
 
 ## Usage
-
+ansible-playbook generate_config.yml -e topology=t1/t1-lag -e platform=Z9100
 
 --- deploy.yml
 |-- generate_config.yml
