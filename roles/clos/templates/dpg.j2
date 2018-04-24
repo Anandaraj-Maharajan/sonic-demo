@@ -54,11 +54,20 @@
 {% elif item.devtype == 'LeafRouter' %}
 {% for index in range(t1_downlinks | length) %}
         <PortChannel>
-          <Name>PortChannel{{ ((index+101)|string).zfill(4) }}</Name>
+          <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
           <AttachTo>{{ port_alias[t1_downlinks[index]] }}</AttachTo>
           <SubInterface/>
         </PortChannel>
 {% endfor %}
+{% if topology == 't1-lag' %}
+{% for index in range(t1_uplinks | length) %}
+        <PortChannel>
+          <Name>PortChannel{{ ((index+101)|string).zfill(4) }}</Name>
+          <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+{% endfor %}
+{% endif %}
 {% endif %}
       </PortChannelInterfaces>
       <VlanInterfaces>
@@ -104,26 +113,34 @@
 {% for index in range(t1_downlinks | length) %}
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
 {% set lagsubnet = item.downaddr | ipsubnet (24, item.tierindex) %}
-		  <Prefix>{{ lagsubnet | ipsubnet (31, index) | ipaddr('1') }}</Prefix>
+          <Prefix>{{ lagsubnet | ipsubnet (31, index) | ipaddr('1') }}</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
           <Prefix>{{ item.downaddr6[index] }} </Prefix>
         </IPInterface>
 {% endfor %}
 {% for index in range(t1_uplinks | length) %}
         <IPInterface>
           <Name i:nil="true"/>
+{% if topology == 't1' %}
           <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+{% elif topology == 't1-lag' %}
+          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+{% endif %}
 {% set lagsubnet = item.upaddr | ipsubnet (24, item.tierindex) %}
           <Prefix>{{ lagsubnet | ipsubnet (31, index) }}</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
+{% if topology == 't1' %}
           <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+{% elif topology == 't1-lag' %}
+          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+{% endif %}
           <Prefix>{{ item.upaddr6[index] }} </Prefix>
         </IPInterface>
 {% endfor %}
