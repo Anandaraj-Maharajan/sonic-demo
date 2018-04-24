@@ -133,7 +133,7 @@
       </a:BGPRouterDeclaration>
     </Routers>
   </CpgDec>
-  <DpgDec>
+ <DpgDec>
     <DeviceDataPlaneInfo>
       <IPSecTunnels/>
       <LoopbackIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
@@ -179,13 +179,23 @@
       <Hostname>T1-2</Hostname>
       <PortChannelInterfaces>
         <PortChannel>
-          <Name>PortChannel0101</Name>
+          <Name>PortChannel0001</Name>
           <AttachTo>hundredGigE1/1</AttachTo>
           <SubInterface/>
         </PortChannel>
         <PortChannel>
-          <Name>PortChannel0102</Name>
+          <Name>PortChannel0002</Name>
           <AttachTo>hundredGigE1/2</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+        <PortChannel>
+          <Name>PortChannel0101</Name>
+          <AttachTo>hundredGigE1/29</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+        <PortChannel>
+          <Name>PortChannel0102</Name>
+          <AttachTo>hundredGigE1/30</AttachTo>
           <SubInterface/>
         </PortChannel>
       </PortChannelInterfaces>
@@ -194,42 +204,42 @@
       <IPInterfaces>
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>PortChannel0101</AttachTo>
-		  <Prefix>10.0.1.1/31</Prefix>
+          <AttachTo>PortChannel0001</AttachTo>
+          <Prefix>10.0.1.1/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>PortChannel0101</AttachTo>
+          <AttachTo>PortChannel0001</AttachTo>
           <Prefix>2018:1002::2/126 </Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>PortChannel0102</AttachTo>
-		  <Prefix>10.0.1.3/31</Prefix>
+          <AttachTo>PortChannel0002</AttachTo>
+          <Prefix>10.0.1.3/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>PortChannel0102</AttachTo>
+          <AttachTo>PortChannel0002</AttachTo>
           <Prefix>2018:1002::6/126 </Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>hundredGigE1/29</AttachTo>
+          <AttachTo>PortChannel0101</AttachTo>
           <Prefix>10.1.1.0/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>hundredGigE1/29</AttachTo>
+          <AttachTo>PortChannel0101</AttachTo>
           <Prefix>2018:2001::1/126 </Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>hundredGigE1/30</AttachTo>
+          <AttachTo>PortChannel0102</AttachTo>
           <Prefix>10.1.1.2/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>hundredGigE1/30</AttachTo>
+          <AttachTo>PortChannel0102</AttachTo>
           <Prefix>2018:2002::1/126 </Prefix>
         </IPInterface>
       </IPInterfaces>

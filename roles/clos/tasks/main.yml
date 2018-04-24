@@ -1,11 +1,16 @@
 ---
-- name: Generating Clos config with T1 uplink as L3 physical links
-  include: t1-l3.yml
-  tags: t1
+- include_vars: ./group_vars/Z9100.yml
+  when: platform == 'Z9100'
 
-- name: Generating Clos config with T1 uplink as L3 Portchannel links
-  include: t1-lag.yml
-  tags: t1-lag
+- include_vars: "{{ item }}"
+  with_items:
+    - pod.yml
+    - T0-28D-4U.yml
 
+- name: Generating minigraph from T0 template
+  template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
+  with_items: "{{ t0 }}"
 
-
+- name: Generating minigraph from T1 template
+  template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
+  with_items: "{{ t1 }}"
