@@ -70,7 +70,7 @@
 {% elif item.devtype == 'LeafRouter' %}
 {% set downlinks = t1_downlinks %}
 {% set uplinks = t1_uplinks %}
-{% for index in range(downlinks | length)  %}
+{% for index in range(((t1_downlinks | length)/lagmembers) | int )  %}
           <BGPPeer>
 {% set lagsubnet = item.downaddr | ipsubnet (24, loop.index0) %}
 {% set lagsubnet31 = lagsubnet | ipsubnet (31, item.tierindex) %}
@@ -81,7 +81,7 @@
           </BGPPeer>
 {% endfor %}
 {% endif %}
-{% for index in range(uplinks | length)  %}
+{% for index in range(((uplinks | length)/lagmembers) | int )  %}
           <BGPPeer>
 {% set lagsubnet = item.upaddr | ipsubnet (24, loop.index0) %}
 {% set lagsubnet31 = lagsubnet | ipsubnet (31, item.tierindex) %}
@@ -94,7 +94,6 @@
 {% if item.devtype == 'ToRRouter' %}
           <BGPPeer i:type="a:BGPPeerPassive">
             <ElementType>BGPPeer</ElementType>
-{# Testing comment #}
             <Address>{{ item.loopback | ipaddr('address') }}</Address>
             <RouteMapIn i:nil="true"/>
             <RouteMapOut i:nil="true"/>

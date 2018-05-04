@@ -43,27 +43,40 @@
       <RsvpInterfaces/>
       <Hostname>{{ item.hostname }}</Hostname>
       <PortChannelInterfaces>
+{# Configuring ToRRouter uplink port channel members #}
+{# Total port channels derived from total uplinks/member ports per portchannel #}
 {% if item.devtype == 'ToRRouter' %}
-{% for index in range(t0_uplinks | length) %}
+{% for index in range(((t0_uplinks | length)/lagmembers) | int ) %}
+{% set startindex = index * lagmembers %}
         <PortChannel>
           <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
-          <AttachTo>{{ port_alias[t0_uplinks[index]] }}</AttachTo>
+          <AttachTo>{% for member in range(lagmembers) %}
+{{ port_alias[t0_uplinks[startindex+member]] }}{% if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
           <SubInterface/>
         </PortChannel>
 {% endfor %}
+{# Configuring LeafRouter downlink port channel members #}
 {% elif item.devtype == 'LeafRouter' %}
-{% for index in range(t1_downlinks | length) %}
+{% for index in range(((t1_downlinks | length)/lagmembers) | int ) %}
+{% set startindex = index * lagmembers %}
         <PortChannel>
           <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
-          <AttachTo>{{ port_alias[t1_downlinks[index]] }}</AttachTo>
+          <AttachTo>{% for member in range(lagmembers) %}
+{{ port_alias[t1_downlinks[startindex+member]] }}{% if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
           <SubInterface/>
         </PortChannel>
 {% endfor %}
+{# Configuring LeafRouter uplink port channel members if t1-lag topology #}
 {% if topology == 't1-lag' %}
-{% for index in range(t1_uplinks | length) %}
+{% for index in range(((t1_uplinks | length)/lagmembers) | int ) %}
+{% set startindex = index * lagmembers %}
         <PortChannel>
           <Name>PortChannel{{ ((index+101)|string).zfill(4) }}</Name>
-          <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+          <AttachTo>{% for member in range(lagmembers) %}
+{{ port_alias[t1_uplinks[startindex+member]] }}{% if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
           <SubInterface/>
         </PortChannel>
 {% endfor %}
@@ -96,7 +109,7 @@
           <AttachTo>Vlan1000</AttachTo>
           <Prefix>{{ item.downaddr | ipsubnet(24, item.tierindex) | ipaddr('1') }}</Prefix>
         </IPInterface>
-{% for index in range(t0_uplinks | length) %}
+{% for index in range(((t0_uplinks | length)/lagmembers) | int ) %}
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
@@ -110,7 +123,7 @@
         </IPInterface>
 {% endfor %}
 {% elif item.devtype == 'LeafRouter' %}
-{% for index in range(t1_downlinks | length) %}
+{% for index in range(((t1_downlinks | length)/lagmembers) | int ) %}
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
@@ -123,7 +136,7 @@
           <Prefix>{{ item.downaddr6[index] }} </Prefix>
         </IPInterface>
 {% endfor %}
-{% for index in range(t1_uplinks | length) %}
+{% for index in range(((t1_uplinks | length)/lagmembers) | int ) %}
         <IPInterface>
           <Name i:nil="true"/>
 {% if topology == 't1' %}
@@ -172,7 +185,7 @@
 {% set uplinks = t1_uplinks %}
 {% endif %}
           <AttachTo>{% for index in range(downlinks | length) %}
-{{ port_alias[index] }}{% if not loop.last %};{% endif %}
+{{ port_alias[downlinks[index]] }}{% if not loop.last %};{% endif %}
 {% endfor %};{% for index in range(uplinks | length) %}
 {{ port_alias[uplinks[index]] }}{% if not loop.last %};{% endif %}
 {% endfor -%}</AttachTo>

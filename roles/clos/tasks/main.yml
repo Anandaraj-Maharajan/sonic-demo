@@ -1,11 +1,15 @@
 ---
-- include_vars: ./group_vars/Z9100.yml
+- include_vars: "{{ item }}"
+  with_items:
+    - ./group_vars/Z9100.yml
+    - 32portlayout.yml
   when: platform == 'Z9100'
 
 - include_vars: "{{ item }}"
   with_items:
-    - pod.yml
-    - T0-28D-4U.yml
+    - ./group_vars/S6100.yml
+    - 64portlayout.yml
+  when: platform == 'S6100'
 
 - name: Generating minigraph from T0 template
   template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
