@@ -9,52 +9,32 @@ ansible-playbook generate_config.yml -e topology=t1/t1-lag -e platform=Z9100
 ansible-playbook deploy.yml -i hosts
 
 ## Ansible folder tree
-
---- deploy.yml
-
-|-- generate_config.yml
-
-|-- group_vars
-
-|       |-- Z9100.yml                      # Add more platform files in this location
-
-|-- hosts                                  # inventory file
-
-|-- minigraph                              # Minigraph output file location
-
-|   |-- T0-1.xml
-
-|   |-- T0-2.xml
-
-|   |-- T1-1.xml
-
-|   |-- T1-2.xml
-
-|-- roles
-
-     |-- clos
-
-        |-- tasks
-
-        |   |-- main.yml                  # Update this file according to the additional platforms added
-
-        |-- templates
-
-        |   |-- cpg.j2
-
-        |   |-- device.j2
-
-        |   |-- dpg.j2
-
-        |   |-- meta.j2
-
-        |   |-- minigraph.j2
-
-        |   |-- png.j2
-
-        |-- vars
-
-            |-- pod.yml              # Change this file according to physical topology
-
-            |-- T0-28D-4U.yml        # Variables related to the given topology
-
+sonic-demo
+|____deploy.yml
+|____generate_config.yml
+|____.gitlab-ci.yml
+|____minigraph
+| |____T0-2.xml
+| |____T1-2.xml
+| |____T0-1.xml
+| |____T1-1.xml
+|____README.md
+|____roles
+| |____clos
+| | |____templates
+| | | |____minigraph.j2
+| | | |____device.j2
+| | | |____png.j2
+| | | |____meta.j2
+| | | |____cpg.j2
+| | | |____dpg.j2
+| | |____vars
+| | | |____32portlayout.yml
+| | | |____64portlayout.yml
+| | | |____main.yml
+| | |____tasks
+| | | |____main.yml
+|____group_vars
+| |____S6100.yml
+| |____Z9100.yml
+|____hosts
