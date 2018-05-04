@@ -1,3 +1,4 @@
+hwsku: Force10-Z9100
 iface_speed: 40000
 port_alias:
   - hundredGigE1/1

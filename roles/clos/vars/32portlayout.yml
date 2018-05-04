@@ -29,6 +29,9 @@ t0_downlinks:
   - 25
   - 26
   - 27
+
+lagmembers: 1
+
 t0_uplinks:
   - 28
   - 29
