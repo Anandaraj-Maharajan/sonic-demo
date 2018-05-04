@@ -10,31 +10,58 @@ ansible-playbook deploy.yml -i hosts
 
 ## Ansible folder tree
 sonic-demo
-|____deploy.yml
-|____generate_config.yml
-|____.gitlab-ci.yml
-|____minigraph
-| |____T0-2.xml
-| |____T1-2.xml
-| |____T0-1.xml
-| |____T1-1.xml
-|____README.md
-|____roles
-| |____clos
-| | |____templates
-| | | |____minigraph.j2
-| | | |____device.j2
-| | | |____png.j2
-| | | |____meta.j2
-| | | |____cpg.j2
-| | | |____dpg.j2
-| | |____vars
-| | | |____32portlayout.yml
-| | | |____64portlayout.yml
-| | | |____main.yml
-| | |____tasks
-| | | |____main.yml
-|____group_vars
-| |____S6100.yml
-| |____Z9100.yml
-|____hosts
+
+    deploy.yml
+    
+    generate_config.yml
+    
+    .gitlab-ci.yml
+    
+    minigraph
+    
+    	T0-2.xml
+    
+    	T1-2.xml
+    
+    	T0-1.xml
+    
+    	T1-1.xml
+    
+    README.md
+    
+    roles
+    
+    	clos
+    
+    		templates
+    
+    			minigraph.j2
+    
+    			device.j2
+    
+    			png.j2
+    
+    			meta.j2
+    
+    			cpg.j2
+    
+    			dpg.j2
+    
+    		vars
+    
+    			32portlayout.yml
+    
+    			64portlayout.yml
+    
+    			main.yml
+    
+    		tasks
+    
+    			main.yml
+    group_vars
+    
+    	S6100.yml
+    
+    	Z9100.yml
+    
+    hosts
