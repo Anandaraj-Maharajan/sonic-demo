@@ -6,10 +6,14 @@ stages:
 validate:
   stage: test
   script:
-    - ansible-playbook generate_config.yml --diff --check -e topology=t1 -e platform=Z9100
+    - ansible-playbook generate_config.yml --diff --check -e "topology=t1 platform=Z9100"
 
 minigraph files:
   stage: generate
   script: 
-    - ansible-playbook generate_config.yml --diff -e topology=t1 -e platform=Z9100
+    - ansible-playbook generate_config.yml --diff -e "topology=t1 platform=Z9100"
+
+configuration:
+  stage: deploy
+  script:
     - ansible-playbook -i hosts deploy.yml 
