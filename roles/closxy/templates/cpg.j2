@@ -1,0 +1,126 @@
+  <CpgDec>
+    <IsisRouters xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+    <PeeringSessions>
+{% if item.devtype == 'ToRRouter' %}
+{% set devices = t1 %}
+{% elif item.devtype == 'LeafRouter' %}
+{% set devices = t2 %}
+{% endif %}
+{% for device in devices %}
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>{{ item.hostname }}</StartRouter>
+        <StartPeer>{{ item.upaddr[loop.index0] | ipsubnet(32,0) | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ device['hostname'] }}</EndRouter>
+        <EndPeer>{{ device['downaddr'][item.tierindex] | ipaddr('1') | ipaddr('address') }}</EndPeer> 
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>{{ item.hostname }}</StartRouter>
+        <StartPeer>{{ item.upaddr6[loop.index0] | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ device.hostname }}</EndRouter>
+        <EndPeer>{{ device['downaddr6'][item.tierindex] | ipaddr('address') }}</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+{% endfor %}
+{% if item.devtype == 'LeafRouter' %}
+{% set devices = t0 %}
+{% for device in devices %}
+      <BGPSession>
+        <MacSec>false</MacSec>
+        <StartRouter>{{ item.hostname }}</StartRouter>
+        <StartPeer>{{ item.downaddr[loop.index0] | ipaddr('1') | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ device['hostname'] }}</EndRouter>
+        <EndPeer>{{ device['upaddr'][item.tierindex] | ipsubnet (32, 0) | ipaddr('address') }}</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+      <BGPSession>
+        <StartRouter>{{ item.hostname }}</StartRouter>
+        <StartPeer>{{  item.downaddr6[loop.index0] | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ device.hostname }}</EndRouter>
+        <EndPeer>{{ device['upaddr6'][item.tierindex] | ipaddr('address') }}</EndPeer>
+        <Multihop>1</Multihop>
+        <HoldTime>10</HoldTime>
+        <KeepAliveTime>3</KeepAliveTime>
+      </BGPSession>
+{% endfor %}
+{% endif %}
+    </PeeringSessions>
+    <Routers xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+      <a:BGPRouterDeclaration>
+{% if item.devtype == 'ToRRouter' %}
+        <a:ASN>{{ t0asnumber + item.tierindex }}</a:ASN>
+{% elif item.devtype == 'LeafRouter' %}
+        <a:ASN>{{ t1asnumber }}</a:ASN>
+{% endif %}
+        <a:Hostname>{{ item.hostname }}</a:Hostname>
+        <a:Peers>
+{% if item.devtype == 'ToRRouter' %}
+{% set uplinks = t0_uplinks %}
+{% elif item.devtype == 'LeafRouter' %}
+{% set downlinks = t1_downlinks %}
+{% set uplinks = t1_uplinks %}
+{% for index in range(((t1_downlinks | length)/lagmembers) | int )  %}
+          <BGPPeer>
+            <Address>{{ item.downaddr[loop.index0] | ipaddr('1') | ipaddr('address') }}</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+{% endfor %}
+{% endif %}
+{% for index in range(((uplinks | length)/lagmembers) | int )  %}
+          <BGPPeer>
+            <Address>{{ item.upaddr[loop.index0] | ipsubnet (32, 0) | ipaddr('address') }}</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+          </BGPPeer>
+{% endfor %}
+{% if item.devtype == 'ToRRouter' %}
+          <BGPPeer i:type="a:BGPPeerPassive">
+            <ElementType>BGPPeer</ElementType>
+            <Address>{{ item.loopback | ipaddr('address') }}</Address>
+            <RouteMapIn i:nil="true"/>
+            <RouteMapOut i:nil="true"/>
+            <Vrf i:nil="true"/>
+            <a:Name>BGPAdvertiseVIP</a:Name>
+            <a:PeersRange>{{ item.downaddr | ipsubnet(24, item.tierindex) }}</a:PeersRange>
+          </BGPPeer>
+{% endif %}
+        </a:Peers>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+{% if item.devtype == 'ToRRouter' %}
+{% for dev in t1 %}
+      <a:BGPRouterDeclaration>
+        <a:ASN>{{ t1asnumber }}</a:ASN>
+        <a:Hostname>{{ dev.hostname }}</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+{% endfor %}
+{% elif item.devtype == 'LeafRouter' %}
+{% for dev in t0 %}
+      <a:BGPRouterDeclaration>
+        <a:ASN>{{ t0asnumber + loop.index0 }}</a:ASN>
+        <a:Hostname>{{ dev.hostname }}</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+{% endfor %}
+{% for dev in t2 %}
+      <a:BGPRouterDeclaration>
+        <a:ASN>{{ t2asnumber }}</a:ASN>
+        <a:Hostname>{{ dev.hostname }}</a:Hostname>
+        <a:RouteMaps/>
+      </a:BGPRouterDeclaration>
+{% endfor %}
+{% endif %}
+    </Routers>
+  </CpgDec>
+

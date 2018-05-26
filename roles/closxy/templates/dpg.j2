@@ -1,0 +1,197 @@
+  <DpgDec>
+    <DeviceDataPlaneInfo>
+      <IPSecTunnels/>
+      <LoopbackIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+        <a:LoopbackIPInterface>
+          <Name>HostIP</Name>
+          <AttachTo>Loopback0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.loopback }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.loopback }}</a:PrefixStr>
+        </a:LoopbackIPInterface>
+        <a:LoopbackIPInterface>
+          <Name>HostIP1</Name>
+          <AttachTo>Loopback0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.loopback6 }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.loopback6 }}</a:PrefixStr>
+        </a:LoopbackIPInterface>
+      </LoopbackIPInterfaces>
+      <ManagementIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
+        <a:ManagementIPInterface>
+          <Name>HostIP</Name>
+          <AttachTo>eth0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.mgmtaddr }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.mgmtaddr }}</a:PrefixStr>
+        </a:ManagementIPInterface>
+        <a:ManagementIPInterface>
+          <Name>V6HostIP</Name>
+          <AttachTo>eth0</AttachTo>
+          <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
+            <b:IPPrefix>{{ item.mgmtaddr6 }}</b:IPPrefix>
+          </a:Prefix>
+          <a:PrefixStr>{{ item.mgmtaddr6 }}</a:PrefixStr>
+        </a:ManagementIPInterface>
+      </ManagementIPInterfaces>
+      <ManagementVIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+      <MplsInterfaces/>
+      <MplsTeInterfaces/>
+      <RsvpInterfaces/>
+      <Hostname>{{ item.hostname }}</Hostname>
+      <PortChannelInterfaces>
+{# Configuring ToRRouter uplink port channel members #}
+{# Total port channels derived from total uplinks/member ports per portchannel #}
+{% if item.devtype == 'ToRRouter' %}
+{% for index in range(((t0_uplinks | length)/lagmembers) | int ) %}
+{% set startindex = index * lagmembers %}
+        <PortChannel>
+          <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
+          <AttachTo>{% for member in range(lagmembers) %}
+{{ port_alias[t0_uplinks[startindex+member]] }}{% if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+{% endfor %}
+{# Configuring LeafRouter downlink port channel members #}
+{% elif item.devtype == 'LeafRouter' %}
+{% for index in range(((t1_downlinks | length)/lagmembers) | int ) %}
+{% set startindex = index * lagmembers %}
+        <PortChannel>
+          <Name>PortChannel{{ ((index+1)|string).zfill(4) }}</Name>
+          <AttachTo>{% for member in range(lagmembers) %}
+{{ port_alias[t1_downlinks[startindex+member]] }}{% if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+{% endfor %}
+{# Configuring LeafRouter uplink port channel members if t1-lag topology #}
+{% if topology == 't1-lag' %}
+{% for index in range(((t1_uplinks | length)/lagmembers) | int ) %}
+{% set startindex = index * lagmembers %}
+        <PortChannel>
+          <Name>PortChannel{{ ((index+101)|string).zfill(4) }}</Name>
+          <AttachTo>{% for member in range(lagmembers) %}
+{{ port_alias[t1_uplinks[startindex+member]] }}{% if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
+          <SubInterface/>
+        </PortChannel>
+{% endfor %}
+{% endif %}
+{% endif %}
+      </PortChannelInterfaces>
+      <VlanInterfaces>
+{% if item.devtype == 'ToRRouter' %}
+        <VlanInterface>
+{% set vlanid = t0vlan + item.tierindex %}
+          <Name>Vlan{{vlanid}}</Name>
+           <AttachTo>{% for index in range(t0_downlinks | length) %}
+{{port_alias[t0_downlinks[index]]}}
+{%- if not loop.last %};{% endif %}
+{% endfor %}</AttachTo>
+          <NoDhcpRelay>False</NoDhcpRelay>
+          <StaticDHCPRelay>0.0.0.0/0</StaticDHCPRelay>
+          <Type i:nil="true"/>
+          <DhcpRelays>{{ dhcp_servers }}</DhcpRelays>
+          <VlanID>{{vlanid}}</VlanID>
+          <Tag>{{vlanid}}</Tag>
+          <Subnets>{{ item.downaddr | ipsubnet(24, item.tierindex) }}</Subnets>
+        </VlanInterface>
+{% endif %}
+      </VlanInterfaces>
+      <IPInterfaces>
+{% if item.devtype == 'ToRRouter' %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>Vlan1000</AttachTo>
+          <Prefix>{{ item.downaddr }}</Prefix>
+        </IPInterface>
+{% for index in range(((t0_uplinks | length)/lagmembers) | int ) %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
+          <Prefix>{{ item.upaddr[index] }}</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
+          <Prefix>{{ item.upaddr6[index] }} </Prefix>
+        </IPInterface>
+{% endfor %}
+{% elif item.devtype == 'LeafRouter' %}
+{% for index in range(((t1_downlinks | length)/lagmembers) | int ) %}
+        <IPInterface>
+          <Name i:nil="true"/>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
+          <Prefix>{{ item.downaddr[index] }}</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+          <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
+          <Prefix>{{ item.downaddr6[index] }} </Prefix>
+        </IPInterface>
+{% endfor %}
+{% for index in range(((t1_uplinks | length)/lagmembers) | int ) %}
+        <IPInterface>
+          <Name i:nil="true"/>
+{% if topology == 't1' %}
+          <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+{% elif topology == 't1-lag' %}
+          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+{% endif %}
+          <Prefix>{{ item.upaddr[index] }}</Prefix>
+        </IPInterface>
+        <IPInterface>
+          <Name i:Name="true"/>
+{% if topology == 't1' %}
+          <AttachTo>{{ port_alias[t1_uplinks[index]] }}</AttachTo>
+{% elif topology == 't1-lag' %}
+          <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
+{% endif %}
+          <Prefix>{{ item.upaddr6[index] }} </Prefix>
+        </IPInterface>
+{% endfor %}
+{% endif %}
+      </IPInterfaces>
+      <DataAcls/>
+      <AclInterfaces>
+        <AclInterface>
+          <InAcl>SNMP_ACL</InAcl>
+          <AttachTo>SNMP</AttachTo>
+          <Type>SNMP</Type>
+        </AclInterface>
+        <AclInterface>
+          <AttachTo>ERSPAN</AttachTo>
+          <InAcl>Everflow</InAcl>
+          <Type>Everflow</Type>
+        </AclInterface>
+          <AclInterface>
+          <AttachTo>VTY_LINE</AttachTo>
+          <InAcl>ssh-only</InAcl>
+          <Type>SSH</Type>
+        </AclInterface>
+        <AclInterface>
+{% if item.devtype == 'ToRRouter' %}
+{% set downlinks = t0_downlinks %}
+{% set uplinks = t0_uplinks %}
+{% elif item.devtype == 'LeafRouter' %}
+{% set downlinks = t1_downlinks %}
+{% set uplinks = t1_uplinks %}
+{% endif %}
+          <AttachTo>{% for index in range(downlinks | length) %}
+{{ port_alias[downlinks[index]] }}{% if not loop.last %};{% endif %}
+{% endfor %};{% for index in range(uplinks | length) %}
+{{ port_alias[uplinks[index]] }}{% if not loop.last %};{% endif %}
+{% endfor -%}</AttachTo>
+          <InAcl>DataAcl</InAcl>
+          <Type>DataPlane</Type>
+        </AclInterface>
+      </AclInterfaces>
+      <DownstreamSummaries/>
+      <DownstreamSummarySet xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
+    </DeviceDataPlaneInfo>
+  </DpgDec>
+

@@ -1,0 +1,25 @@
+---
+- include_vars: "{{ item }}"
+  with_items:
+    - ./group_vars/Z9100.yml
+    - 32portlayout.yml
+  when: platform == 'Z9100'
+
+- include_vars: "{{ item }}"
+  with_items:
+    - ./group_vars/S6100.yml
+    - 64portlayout.yml
+  when: platform == 'S6100'
+
+- name: Generating podset related variables
+  script: minigraph_facts.py {{tor}} {{leaf}} {{spine}}
+
+- include_vars: podset.yml 
+
+- name: Generating minigraph from T0 template
+  template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
+  with_items: "{{ t0 }}"
+
+- name: Generating minigraph from T1 template
+  template: src=minigraph.j2 dest=./minigraph/{{item.hostname}}.xml
+  with_items: "{{ t1 }}"

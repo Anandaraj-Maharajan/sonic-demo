@@ -1,0 +1,70 @@
+  <PngDec>
+    <DeviceInterfaceLinks>
+{% set tierindex = item.tierindex %}
+{% if item.devtype == 'ToRRouter' %}
+{% for device in t1 %}
+      <DeviceLinkBase>
+        <ElementType>DeviceInterfaceLink</ElementType>
+        <EndDevice>{{ device.hostname }}</EndDevice>
+        <EndPort>{{ port_alias[t1_downlinks[tierindex]] }}</EndPort>
+        <StartDevice>{{ item.hostname }}</StartDevice>
+        <StartPort>{{ port_alias[t0_uplinks[loop.index0]] }}</StartPort>
+      </DeviceLinkBase>
+{% endfor %}
+{% elif item.devtype == 'LeafRouter' %}
+{% for device in t2 %}
+      <DeviceLinkBase>
+        <ElementType>DeviceInterfaceLink</ElementType>
+        <EndDevice>{{ device.hostname }}</EndDevice>
+        <EndPort>{{ port_alias[t2_downlinks[tierindex]] }}</EndPort>
+        <StartDevice>{{ item.hostname }}</StartDevice>
+        <StartPort>{{ port_alias[t1_uplinks[loop.index0]] }}</StartPort>
+      </DeviceLinkBase>
+{% endfor %}
+{% for device in t0 %}
+      <DeviceLinkBase>
+        <ElementType>DeviceInterfaceLink</ElementType>
+        <EndDevice>{{ device.hostname }}</EndDevice>
+        <EndPort>{{ port_alias[t0_uplinks[tierindex]] }}</EndPort>
+        <StartDevice>{{ item.hostname }}</StartDevice>
+        <StartPort>{{ port_alias[t0_downlinks[loop.index0]] }}</StartPort>
+      </DeviceLinkBase>
+{% endfor %}
+{% endif %}
+    </DeviceInterfaceLinks>
+    <Devices>
+      <Device i:type="{{ item.devtype }}">
+        <Hostname>{{ item.hostname }}</Hostname>
+        <HwSku>{{ hwsku }}</HwSku>
+        <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>{{ item.mgmtaddr | ipaddr('address') }}</a:IPPrefix>
+        </ManagementAddress>
+      </Device>
+{% if item.devtype == 'ToRRouter' %}
+{% set devices = t1 %}
+{% elif item.devtype == 'LeafRouter' %}
+{% set devices = t2 %}
+{% endif %}
+{% for device in devices %}
+      <Device i:type="{{ device.devtype }}">
+         <Hostname>{{ device.hostname }}</Hostname>
+         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>{{ device.mgmtaddr | ipaddr('address') }}</a:IPPrefix>
+         </ManagementAddress>
+         <HwSku>{{ hwsku }}</HwSku>
+      </Device>
+{% endfor %}
+{% if item.devtype == 'LeafRouter' %}
+{% for device in t0 %}
+      <Device i:type="{{ device.devtype }}">
+         <Hostname>{{ device.hostname }}</Hostname>
+         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
+           <a:IPPrefix>{{ device.mgmtaddr | ipaddr('address') }}</a:IPPrefix>
+         </ManagementAddress>
+         <HwSku>{{ hwsku }}</HwSku>
+      </Device>
+{% endfor %}
+{% endif %}
+    </Devices>
+  </PngDec>
+

@@ -1,0 +1,44 @@
+---
+syslog_servers: 10.0.0.5;10.0.0.6
+dhcp_servers: 192.0.0.1;192.0.0.2;192.0.0.3;192.0.0.4
+forced_mgmt_routes: 0.0.0.0/0
+ntp_servers: 23.92.29.245;204.2.134.164
+snmp_servers: 10.0.0.9
+tacacs_servers: 10.0.0.9;10.0.0.8
+radius_servers:
+erspan_dest: 10.0.0.7
+tacacs_group: testlab
+
+t0vlan: 1001
+t0asnumber: 64601
+t1asnumber: 65000
+t2asnumber: 65500
+
+Tier0:
+  mgmtnetwork: 10.11.162.0/24
+  mgmtstartaddr: 40             #(Last octet value - 1) e.g. to start from 41, provide start address as 40
+  mgmtnetwork6: 1011:1620::/96
+  mgmtstartaddr6: '0x9'         #(Host value - 1) e.g. to start from a, provide start address as 9
+  loopback: 10.12.0.1/32
+  loopbackstartaddr: 1
+  loopback6: FC00:1::1000/128
+  loopbackstartaddr6: 1000
+  downaddr: 192.168.1.0/24
+  upaddr: 10.0.1.0/24           #t0-1:[10.0.1.0/31, 10.0.1.2/31 ... n/31], t0-2:[10.0.2.0/31, 10.0.2.2/31 ... n/31]
+  upaddr6: 2018:a:b:1::/64
+
+Tier1:
+  mgmtnetwork: 10.11.162.0/24
+  mgmtstartaddr: 60             #(Last octet value - 1) e.g. to start from 41, provide start address as 40
+  mgmtnetwork6: 1011:1620::/96
+  mgmtstartaddr6: '0x1e'         #(Host value - 1) e.g. to start from a, provide start address as 9
+  loopback: 10.12.0.21/32
+  loopbackstartaddr: 21
+  loopback6: FC00:1::1014/128
+  loopbackstartaddr6: 1014
+  upaddr: 10.1.1.0/24           #t0-1:[10.0.1.0/31, 10.0.1.2/31 ... n/31], t0-2:[10.0.2.0/31, 10.0.2.2/31 ... n/31]
+  upaddr6: 2018:aa:b:1::/64
+
+Tier2:
+  mgmtnetwork: 10.11.162.0/24
+  mgmtstartaddr: 70             #(Last octet value - 1) e.g. to start from 41, provide start address as 40
