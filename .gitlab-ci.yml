@@ -1,0 +1,19 @@
+stages:
+  - test
+  - generate
+  - deploy
+
+validate:
+  stage: test
+  script:
+    - ansible-playbook generate_config.yml -e "topology=t1 platform=Z9100" --diff --check
+
+minigraph files:
+  stage: generate
+  script: 
+    - ansible-playbook generate_config.yml -e "topology=t1 platform=Z9100" --diff
+
+onfiguration:
+  stage: deploy
+  script:
+    - ansible-playbook -i hosts deploy.yml 

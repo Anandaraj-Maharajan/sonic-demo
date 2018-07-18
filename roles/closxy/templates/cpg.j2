@@ -10,11 +10,9 @@
       <BGPSession>
         <MacSec>false</MacSec>
         <StartRouter>{{ item.hostname }}</StartRouter>
-{% set lagsubnet = item.upaddr | ipsubnet (24, loop.index0) %}
-{% set lagsubnet31 = lagsubnet | ipsubnet (31, item.tierindex) %}
-        <StartPeer>{{ lagsubnet31 | ipsubnet (32, 0) | ipaddr('address') }}</StartPeer>
-        <EndRouter>{{ device.hostname }}</EndRouter>
-        <EndPeer>{{ lagsubnet | ipsubnet (31, item.tierindex) | ipaddr('1') | ipaddr('address') }}</EndPeer>
+        <StartPeer>{{ item.upaddr[loop.index0] | ipsubnet(32,0) | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ device['hostname'] }}</EndRouter>
+        <EndPeer>{{ device['downaddr'][item.tierindex] | ipaddr('1') | ipaddr('address') }}</EndPeer> 
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
@@ -23,7 +21,7 @@
         <StartRouter>{{ item.hostname }}</StartRouter>
         <StartPeer>{{ item.upaddr6[loop.index0] | ipaddr('address') }}</StartPeer>
         <EndRouter>{{ device.hostname }}</EndRouter>
-        <EndPeer>{{ item.upaddr6[loop.index0] | ipaddr('2') | ipaddr('address') }}</EndPeer>
+        <EndPeer>{{ device['downaddr6'][item.tierindex] | ipaddr('address') }}</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
@@ -35,20 +33,18 @@
       <BGPSession>
         <MacSec>false</MacSec>
         <StartRouter>{{ item.hostname }}</StartRouter>
-{% set lagsubnet = item.downaddr | ipsubnet (24, item.tierindex) %}
-{% set lagsubnet31 = lagsubnet | ipsubnet (31, loop.index0) %}
-        <StartPeer>{{ lagsubnet | ipsubnet (31, loop.index0) | ipaddr('1') | ipaddr('address') }}</StartPeer>
-        <EndRouter>{{ device.hostname }}</EndRouter>
-        <EndPeer>{{ lagsubnet31 | ipsubnet (32, 0) | ipaddr('address') }}</EndPeer>
+        <StartPeer>{{ item.downaddr[loop.index0] | ipaddr('1') | ipaddr('address') }}</StartPeer>
+        <EndRouter>{{ device['hostname'] }}</EndRouter>
+        <EndPeer>{{ device['upaddr'][item.tierindex] | ipsubnet (32, 0) | ipaddr('address') }}</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
       </BGPSession>
       <BGPSession>
         <StartRouter>{{ item.hostname }}</StartRouter>
-        <StartPeer>{{  item.downaddr6[loop.index0] | ipaddr('2') | ipaddr('address') }}</StartPeer>
+        <StartPeer>{{  item.downaddr6[loop.index0] | ipaddr('address') }}</StartPeer>
         <EndRouter>{{ device.hostname }}</EndRouter>
-        <EndPeer>{{ item.downaddr6[loop.index0] | ipaddr('1') | ipaddr('address') }}</EndPeer>
+        <EndPeer>{{ device['upaddr6'][item.tierindex] | ipaddr('address') }}</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
@@ -72,9 +68,7 @@
 {% set uplinks = t1_uplinks %}
 {% for index in range(((t1_downlinks | length)/lagmembers) | int )  %}
           <BGPPeer>
-{% set lagsubnet = item.downaddr | ipsubnet (24, loop.index0) %}
-{% set lagsubnet31 = lagsubnet | ipsubnet (31, item.tierindex) %}
-            <Address>{{ lagsubnet | ipsubnet (31, item.tierindex) | ipaddr('1') | ipaddr('address') }}</Address>
+            <Address>{{ item.downaddr[loop.index0] | ipaddr('1') | ipaddr('address') }}</Address>
             <RouteMapIn i:nil="true"/>
             <RouteMapOut i:nil="true"/>
             <Vrf i:nil="true"/>
@@ -83,9 +77,7 @@
 {% endif %}
 {% for index in range(((uplinks | length)/lagmembers) | int )  %}
           <BGPPeer>
-{% set lagsubnet = item.upaddr | ipsubnet (24, loop.index0) %}
-{% set lagsubnet31 = lagsubnet | ipsubnet (31, item.tierindex) %}
-            <Address>{{ lagsubnet31 | ipsubnet (32, 0) | ipaddr('address') }}</Address>
+            <Address>{{ item.upaddr[loop.index0] | ipsubnet (32, 0) | ipaddr('address') }}</Address>
             <RouteMapIn i:nil="true"/>
             <RouteMapOut i:nil="true"/>
             <Vrf i:nil="true"/>

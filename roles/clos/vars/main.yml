@@ -1,5 +1,4 @@
 ---
-hwsku: Force10-Z9100
 syslog_servers: 10.0.0.5;10.0.0.6
 dhcp_servers: 192.0.0.1;192.0.0.2;192.0.0.3;192.0.0.4
 forced_mgmt_routes: 0.0.0.0/0

@@ -179,12 +179,12 @@
       <Hostname>T1-1</Hostname>
       <PortChannelInterfaces>
         <PortChannel>
-          <Name>PortChannel0101</Name>
+          <Name>PortChannel0001</Name>
           <AttachTo>hundredGigE1/1</AttachTo>
           <SubInterface/>
         </PortChannel>
         <PortChannel>
-          <Name>PortChannel0102</Name>
+          <Name>PortChannel0002</Name>
           <AttachTo>hundredGigE1/2</AttachTo>
           <SubInterface/>
         </PortChannel>
@@ -194,22 +194,22 @@
       <IPInterfaces>
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>PortChannel0101</AttachTo>
-		  <Prefix>10.0.0.1/31</Prefix>
+          <AttachTo>PortChannel0001</AttachTo>
+          <Prefix>10.0.0.1/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>PortChannel0101</AttachTo>
+          <AttachTo>PortChannel0001</AttachTo>
           <Prefix>2018:1001::2/126 </Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:nil="true"/>
-          <AttachTo>PortChannel0102</AttachTo>
-		  <Prefix>10.0.0.3/31</Prefix>
+          <AttachTo>PortChannel0002</AttachTo>
+          <Prefix>10.0.0.3/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
-          <AttachTo>PortChannel0102</AttachTo>
+          <AttachTo>PortChannel0002</AttachTo>
           <Prefix>2018:1001::6/126 </Prefix>
         </IPInterface>
         <IPInterface>

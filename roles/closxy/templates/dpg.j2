@@ -107,14 +107,13 @@
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>Vlan1000</AttachTo>
-          <Prefix>{{ item.downaddr | ipsubnet(24, item.tierindex) | ipaddr('1') }}</Prefix>
+          <Prefix>{{ item.downaddr }}</Prefix>
         </IPInterface>
 {% for index in range(((t0_uplinks | length)/lagmembers) | int ) %}
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
-{% set lagsubnet = item.upaddr | ipsubnet (24, index) %}
-          <Prefix>{{ lagsubnet | ipsubnet (31, item.tierindex) }}</Prefix>
+          <Prefix>{{ item.upaddr[index] }}</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
@@ -127,8 +126,7 @@
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel{{ ((index+1) |string).zfill(4) }}</AttachTo>
-{% set lagsubnet = item.downaddr | ipsubnet (24, item.tierindex) %}
-          <Prefix>{{ lagsubnet | ipsubnet (31, index) | ipaddr('1') }}</Prefix>
+          <Prefix>{{ item.downaddr[index] }}</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
@@ -144,8 +142,7 @@
 {% elif topology == 't1-lag' %}
           <AttachTo>PortChannel{{ ((index+101) |string).zfill(4) }}</AttachTo>
 {% endif %}
-{% set lagsubnet = item.upaddr | ipsubnet (24, item.tierindex) %}
-          <Prefix>{{ lagsubnet | ipsubnet (31, index) }}</Prefix>
+          <Prefix>{{ item.upaddr[index] }}</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
