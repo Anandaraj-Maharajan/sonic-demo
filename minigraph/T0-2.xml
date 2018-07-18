@@ -5,18 +5,18 @@
       <BGPSession>
         <MacSec>false</MacSec>
         <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.0</StartPeer>
+        <StartPeer>10.0.0.2</StartPeer>
         <EndRouter>T1-1</EndRouter>
-        <EndPeer>10.0.2.1</EndPeer> 
+        <EndPeer>10.0.0.3</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
       </BGPSession>
       <BGPSession>
         <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::1</StartPeer>
+        <StartPeer>2018:1001::5</StartPeer>
         <EndRouter>T1-1</EndRouter>
-        <EndPeer>2018:a:b:2::2</EndPeer>
+        <EndPeer>2018:1001::6</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
@@ -24,132 +24,18 @@
       <BGPSession>
         <MacSec>false</MacSec>
         <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.2</StartPeer>
+        <StartPeer>10.0.1.2</StartPeer>
         <EndRouter>T1-2</EndRouter>
-        <EndPeer>10.0.2.3</EndPeer> 
+        <EndPeer>10.0.1.3</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
       </BGPSession>
       <BGPSession>
         <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::5</StartPeer>
+        <StartPeer>2018:1002::5</StartPeer>
         <EndRouter>T1-2</EndRouter>
-        <EndPeer>2018:a:b:2::6</EndPeer>
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <MacSec>false</MacSec>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.4</StartPeer>
-        <EndRouter>T1-3</EndRouter>
-        <EndPeer>10.0.2.5</EndPeer> 
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::9</StartPeer>
-        <EndRouter>T1-3</EndRouter>
-        <EndPeer>2018:a:b:2::a</EndPeer>
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <MacSec>false</MacSec>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.6</StartPeer>
-        <EndRouter>T1-4</EndRouter>
-        <EndPeer>10.0.2.7</EndPeer> 
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::d</StartPeer>
-        <EndRouter>T1-4</EndRouter>
-        <EndPeer>2018:a:b:2::e</EndPeer>
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <MacSec>false</MacSec>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.8</StartPeer>
-        <EndRouter>T1-5</EndRouter>
-        <EndPeer>10.0.2.9</EndPeer> 
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::11</StartPeer>
-        <EndRouter>T1-5</EndRouter>
-        <EndPeer>2018:a:b:2::12</EndPeer>
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <MacSec>false</MacSec>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.10</StartPeer>
-        <EndRouter>T1-6</EndRouter>
-        <EndPeer>10.0.2.11</EndPeer> 
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::15</StartPeer>
-        <EndRouter>T1-6</EndRouter>
-        <EndPeer>2018:a:b:2::16</EndPeer>
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <MacSec>false</MacSec>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.12</StartPeer>
-        <EndRouter>T1-7</EndRouter>
-        <EndPeer>10.0.2.13</EndPeer> 
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::19</StartPeer>
-        <EndRouter>T1-7</EndRouter>
-        <EndPeer>2018:a:b:2::1a</EndPeer>
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <MacSec>false</MacSec>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>10.0.2.14</StartPeer>
-        <EndRouter>T1-8</EndRouter>
-        <EndPeer>10.0.2.15</EndPeer> 
-        <Multihop>1</Multihop>
-        <HoldTime>10</HoldTime>
-        <KeepAliveTime>3</KeepAliveTime>
-      </BGPSession>
-      <BGPSession>
-        <StartRouter>T0-2</StartRouter>
-        <StartPeer>2018:a:b:2::1d</StartPeer>
-        <EndRouter>T1-8</EndRouter>
-        <EndPeer>2018:a:b:2::1e</EndPeer>
+        <EndPeer>2018:1002::6</EndPeer>
         <Multihop>1</Multihop>
         <HoldTime>10</HoldTime>
         <KeepAliveTime>3</KeepAliveTime>
@@ -161,49 +47,13 @@
         <a:Hostname>T0-2</a:Hostname>
         <a:Peers>
           <BGPPeer>
-            <Address>10.0.2.0</Address>
+            <Address>10.0.0.2</Address>
             <RouteMapIn i:nil="true"/>
             <RouteMapOut i:nil="true"/>
             <Vrf i:nil="true"/>
           </BGPPeer>
           <BGPPeer>
-            <Address>10.0.2.2</Address>
-            <RouteMapIn i:nil="true"/>
-            <RouteMapOut i:nil="true"/>
-            <Vrf i:nil="true"/>
-          </BGPPeer>
-          <BGPPeer>
-            <Address>10.0.2.4</Address>
-            <RouteMapIn i:nil="true"/>
-            <RouteMapOut i:nil="true"/>
-            <Vrf i:nil="true"/>
-          </BGPPeer>
-          <BGPPeer>
-            <Address>10.0.2.6</Address>
-            <RouteMapIn i:nil="true"/>
-            <RouteMapOut i:nil="true"/>
-            <Vrf i:nil="true"/>
-          </BGPPeer>
-          <BGPPeer>
-            <Address>10.0.2.8</Address>
-            <RouteMapIn i:nil="true"/>
-            <RouteMapOut i:nil="true"/>
-            <Vrf i:nil="true"/>
-          </BGPPeer>
-          <BGPPeer>
-            <Address>10.0.2.10</Address>
-            <RouteMapIn i:nil="true"/>
-            <RouteMapOut i:nil="true"/>
-            <Vrf i:nil="true"/>
-          </BGPPeer>
-          <BGPPeer>
-            <Address>10.0.2.12</Address>
-            <RouteMapIn i:nil="true"/>
-            <RouteMapOut i:nil="true"/>
-            <Vrf i:nil="true"/>
-          </BGPPeer>
-          <BGPPeer>
-            <Address>10.0.2.14</Address>
+            <Address>10.0.1.2</Address>
             <RouteMapIn i:nil="true"/>
             <RouteMapOut i:nil="true"/>
             <Vrf i:nil="true"/>
@@ -215,7 +65,7 @@
             <RouteMapOut i:nil="true"/>
             <Vrf i:nil="true"/>
             <a:Name>BGPAdvertiseVIP</a:Name>
-            <a:PeersRange>False</a:PeersRange>
+            <a:PeersRange>192.168.1.0/24</a:PeersRange>
           </BGPPeer>
         </a:Peers>
         <a:RouteMaps/>
@@ -228,36 +78,6 @@
       <a:BGPRouterDeclaration>
         <a:ASN>65000</a:ASN>
         <a:Hostname>T1-2</a:Hostname>
-        <a:RouteMaps/>
-      </a:BGPRouterDeclaration>
-      <a:BGPRouterDeclaration>
-        <a:ASN>65000</a:ASN>
-        <a:Hostname>T1-3</a:Hostname>
-        <a:RouteMaps/>
-      </a:BGPRouterDeclaration>
-      <a:BGPRouterDeclaration>
-        <a:ASN>65000</a:ASN>
-        <a:Hostname>T1-4</a:Hostname>
-        <a:RouteMaps/>
-      </a:BGPRouterDeclaration>
-      <a:BGPRouterDeclaration>
-        <a:ASN>65000</a:ASN>
-        <a:Hostname>T1-5</a:Hostname>
-        <a:RouteMaps/>
-      </a:BGPRouterDeclaration>
-      <a:BGPRouterDeclaration>
-        <a:ASN>65000</a:ASN>
-        <a:Hostname>T1-6</a:Hostname>
-        <a:RouteMaps/>
-      </a:BGPRouterDeclaration>
-      <a:BGPRouterDeclaration>
-        <a:ASN>65000</a:ASN>
-        <a:Hostname>T1-7</a:Hostname>
-        <a:RouteMaps/>
-      </a:BGPRouterDeclaration>
-      <a:BGPRouterDeclaration>
-        <a:ASN>65000</a:ASN>
-        <a:Hostname>T1-8</a:Hostname>
         <a:RouteMaps/>
       </a:BGPRouterDeclaration>
     </Routers>
@@ -278,9 +98,9 @@
           <Name>HostIP1</Name>
           <AttachTo>Loopback0</AttachTo>
           <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
-            <b:IPPrefix>fc00:1::1001/128</b:IPPrefix>
+            <b:IPPrefix>FC00:1::2/128</b:IPPrefix>
           </a:Prefix>
-          <a:PrefixStr>fc00:1::1001/128</a:PrefixStr>
+          <a:PrefixStr>FC00:1::2/128</a:PrefixStr>
         </a:LoopbackIPInterface>
       </LoopbackIPInterfaces>
       <ManagementIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution">
@@ -296,9 +116,9 @@
           <Name>V6HostIP</Name>
           <AttachTo>eth0</AttachTo>
           <a:Prefix xmlns:b="Microsoft.Search.Autopilot.Evolution">
-            <b:IPPrefix>1011:1620::b/96</b:IPPrefix>
+            <b:IPPrefix>FC00:2::2/128</b:IPPrefix>
           </a:Prefix>
-          <a:PrefixStr>1011:1620::b/96</a:PrefixStr>
+          <a:PrefixStr>FC00:2::2/128</a:PrefixStr>
         </a:ManagementIPInterface>
       </ManagementIPInterfaces>
       <ManagementVIPInterfaces xmlns:a="http://schemas.datacontract.org/2004/07/Microsoft.Search.Autopilot.Evolution"/>
@@ -309,143 +129,53 @@
       <PortChannelInterfaces>
         <PortChannel>
           <Name>PortChannel0001</Name>
-          <AttachTo>hundredGigE1/25</AttachTo>
-          <SubInterface/>
-        </PortChannel>
-        <PortChannel>
-          <Name>PortChannel0002</Name>
-          <AttachTo>hundredGigE1/26</AttachTo>
-          <SubInterface/>
-        </PortChannel>
-        <PortChannel>
-          <Name>PortChannel0003</Name>
-          <AttachTo>hundredGigE1/27</AttachTo>
-          <SubInterface/>
-        </PortChannel>
-        <PortChannel>
-          <Name>PortChannel0004</Name>
-          <AttachTo>hundredGigE1/28</AttachTo>
-          <SubInterface/>
-        </PortChannel>
-        <PortChannel>
-          <Name>PortChannel0005</Name>
           <AttachTo>hundredGigE1/29</AttachTo>
           <SubInterface/>
         </PortChannel>
         <PortChannel>
-          <Name>PortChannel0006</Name>
+          <Name>PortChannel0002</Name>
           <AttachTo>hundredGigE1/30</AttachTo>
-          <SubInterface/>
-        </PortChannel>
-        <PortChannel>
-          <Name>PortChannel0007</Name>
-          <AttachTo>hundredGigE1/31</AttachTo>
-          <SubInterface/>
-        </PortChannel>
-        <PortChannel>
-          <Name>PortChannel0008</Name>
-          <AttachTo>hundredGigE1/32</AttachTo>
           <SubInterface/>
         </PortChannel>
       </PortChannelInterfaces>
       <VlanInterfaces>
         <VlanInterface>
           <Name>Vlan1002</Name>
-           <AttachTo>hundredGigE1/1;hundredGigE1/2;hundredGigE1/3;hundredGigE1/4;hundredGigE1/5;hundredGigE1/6;hundredGigE1/7;hundredGigE1/8;hundredGigE1/9;hundredGigE1/10;hundredGigE1/11;hundredGigE1/12;hundredGigE1/13;hundredGigE1/14;hundredGigE1/15;hundredGigE1/16;hundredGigE1/17;hundredGigE1/18;hundredGigE1/19;hundredGigE1/20</AttachTo>
+           <AttachTo>hundredGigE1/1;hundredGigE1/2;hundredGigE1/3;hundredGigE1/4;hundredGigE1/5;hundredGigE1/6;hundredGigE1/7;hundredGigE1/8;hundredGigE1/9;hundredGigE1/10;hundredGigE1/11;hundredGigE1/12;hundredGigE1/13;hundredGigE1/14;hundredGigE1/15;hundredGigE1/16;hundredGigE1/17;hundredGigE1/18;hundredGigE1/19;hundredGigE1/20;hundredGigE1/21;hundredGigE1/22;hundredGigE1/23;hundredGigE1/24;hundredGigE1/25;hundredGigE1/26;hundredGigE1/27;hundredGigE1/28</AttachTo>
           <NoDhcpRelay>False</NoDhcpRelay>
           <StaticDHCPRelay>0.0.0.0/0</StaticDHCPRelay>
           <Type i:nil="true"/>
           <DhcpRelays>192.0.0.1;192.0.0.2;192.0.0.3;192.0.0.4</DhcpRelays>
           <VlanID>1002</VlanID>
           <Tag>1002</Tag>
-          <Subnets>False</Subnets>
+          <Subnets>192.168.1.0/24</Subnets>
         </VlanInterface>
       </VlanInterfaces>
       <IPInterfaces>
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>Vlan1000</AttachTo>
-          <Prefix>192.168.1.2/24</Prefix>
+          <Prefix>192.168.1.1/24</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel0001</AttachTo>
-          <Prefix>10.0.2.0/31</Prefix>
+          <Prefix>10.0.0.2/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
           <AttachTo>PortChannel0001</AttachTo>
-          <Prefix>2018:a:b:2::1/126 </Prefix>
+          <Prefix>2018:1001::5/126 </Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:nil="true"/>
           <AttachTo>PortChannel0002</AttachTo>
-          <Prefix>10.0.2.2/31</Prefix>
+          <Prefix>10.0.1.2/31</Prefix>
         </IPInterface>
         <IPInterface>
           <Name i:Name="true"/>
           <AttachTo>PortChannel0002</AttachTo>
-          <Prefix>2018:a:b:2::5/126 </Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:nil="true"/>
-          <AttachTo>PortChannel0003</AttachTo>
-          <Prefix>10.0.2.4/31</Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:Name="true"/>
-          <AttachTo>PortChannel0003</AttachTo>
-          <Prefix>2018:a:b:2::9/126 </Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:nil="true"/>
-          <AttachTo>PortChannel0004</AttachTo>
-          <Prefix>10.0.2.6/31</Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:Name="true"/>
-          <AttachTo>PortChannel0004</AttachTo>
-          <Prefix>2018:a:b:2::d/126 </Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:nil="true"/>
-          <AttachTo>PortChannel0005</AttachTo>
-          <Prefix>10.0.2.8/31</Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:Name="true"/>
-          <AttachTo>PortChannel0005</AttachTo>
-          <Prefix>2018:a:b:2::11/126 </Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:nil="true"/>
-          <AttachTo>PortChannel0006</AttachTo>
-          <Prefix>10.0.2.10/31</Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:Name="true"/>
-          <AttachTo>PortChannel0006</AttachTo>
-          <Prefix>2018:a:b:2::15/126 </Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:nil="true"/>
-          <AttachTo>PortChannel0007</AttachTo>
-          <Prefix>10.0.2.12/31</Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:Name="true"/>
-          <AttachTo>PortChannel0007</AttachTo>
-          <Prefix>2018:a:b:2::19/126 </Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:nil="true"/>
-          <AttachTo>PortChannel0008</AttachTo>
-          <Prefix>10.0.2.14/31</Prefix>
-        </IPInterface>
-        <IPInterface>
-          <Name i:Name="true"/>
-          <AttachTo>PortChannel0008</AttachTo>
-          <Prefix>2018:a:b:2::1d/126 </Prefix>
+          <Prefix>2018:1002::5/126 </Prefix>
         </IPInterface>
       </IPInterfaces>
       <DataAcls/>
@@ -466,7 +196,7 @@
           <Type>SSH</Type>
         </AclInterface>
         <AclInterface>
-          <AttachTo>hundredGigE1/1;hundredGigE1/2;hundredGigE1/3;hundredGigE1/4;hundredGigE1/5;hundredGigE1/6;hundredGigE1/7;hundredGigE1/8;hundredGigE1/9;hundredGigE1/10;hundredGigE1/11;hundredGigE1/12;hundredGigE1/13;hundredGigE1/14;hundredGigE1/15;hundredGigE1/16;hundredGigE1/17;hundredGigE1/18;hundredGigE1/19;hundredGigE1/20;hundredGigE1/25;hundredGigE1/26;hundredGigE1/27;hundredGigE1/28;hundredGigE1/29;hundredGigE1/30;hundredGigE1/31;hundredGigE1/32</AttachTo>
+          <AttachTo>hundredGigE1/1;hundredGigE1/2;hundredGigE1/3;hundredGigE1/4;hundredGigE1/5;hundredGigE1/6;hundredGigE1/7;hundredGigE1/8;hundredGigE1/9;hundredGigE1/10;hundredGigE1/11;hundredGigE1/12;hundredGigE1/13;hundredGigE1/14;hundredGigE1/15;hundredGigE1/16;hundredGigE1/17;hundredGigE1/18;hundredGigE1/19;hundredGigE1/20;hundredGigE1/21;hundredGigE1/22;hundredGigE1/23;hundredGigE1/24;hundredGigE1/25;hundredGigE1/26;hundredGigE1/27;hundredGigE1/28;hundredGigE1/29;hundredGigE1/30</AttachTo>
           <InAcl>DataAcl</InAcl>
           <Type>DataPlane</Type>
         </AclInterface>
@@ -482,56 +212,14 @@
         <EndDevice>T1-1</EndDevice>
         <EndPort>hundredGigE1/2</EndPort>
         <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/25</StartPort>
+        <StartPort>hundredGigE1/29</StartPort>
       </DeviceLinkBase>
       <DeviceLinkBase>
         <ElementType>DeviceInterfaceLink</ElementType>
         <EndDevice>T1-2</EndDevice>
         <EndPort>hundredGigE1/2</EndPort>
         <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/26</StartPort>
-      </DeviceLinkBase>
-      <DeviceLinkBase>
-        <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-3</EndDevice>
-        <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/27</StartPort>
-      </DeviceLinkBase>
-      <DeviceLinkBase>
-        <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-4</EndDevice>
-        <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/28</StartPort>
-      </DeviceLinkBase>
-      <DeviceLinkBase>
-        <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-5</EndDevice>
-        <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/29</StartPort>
-      </DeviceLinkBase>
-      <DeviceLinkBase>
-        <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-6</EndDevice>
-        <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
         <StartPort>hundredGigE1/30</StartPort>
-      </DeviceLinkBase>
-      <DeviceLinkBase>
-        <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-7</EndDevice>
-        <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/31</StartPort>
-      </DeviceLinkBase>
-      <DeviceLinkBase>
-        <ElementType>DeviceInterfaceLink</ElementType>
-        <EndDevice>T1-8</EndDevice>
-        <EndPort>hundredGigE1/2</EndPort>
-        <StartDevice>T0-2</StartDevice>
-        <StartPort>hundredGigE1/32</StartPort>
       </DeviceLinkBase>
     </DeviceInterfaceLinks>
     <Devices>
@@ -545,56 +233,14 @@
       <Device i:type="LeafRouter">
          <Hostname>T1-1</Hostname>
          <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.61</a:IPPrefix>
+           <a:IPPrefix>10.11.162.41</a:IPPrefix>
          </ManagementAddress>
          <HwSku>Force10-Z9100</HwSku>
       </Device>
       <Device i:type="LeafRouter">
          <Hostname>T1-2</Hostname>
          <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.62</a:IPPrefix>
-         </ManagementAddress>
-         <HwSku>Force10-Z9100</HwSku>
-      </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-3</Hostname>
-         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.63</a:IPPrefix>
-         </ManagementAddress>
-         <HwSku>Force10-Z9100</HwSku>
-      </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-4</Hostname>
-         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.64</a:IPPrefix>
-         </ManagementAddress>
-         <HwSku>Force10-Z9100</HwSku>
-      </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-5</Hostname>
-         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.65</a:IPPrefix>
-         </ManagementAddress>
-         <HwSku>Force10-Z9100</HwSku>
-      </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-6</Hostname>
-         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.66</a:IPPrefix>
-         </ManagementAddress>
-         <HwSku>Force10-Z9100</HwSku>
-      </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-7</Hostname>
-         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.67</a:IPPrefix>
-         </ManagementAddress>
-         <HwSku>Force10-Z9100</HwSku>
-      </Device>
-      <Device i:type="LeafRouter">
-         <Hostname>T1-8</Hostname>
-         <ManagementAddress xmlns:a="Microsoft.Search.Autopilot.NetMux">
-           <a:IPPrefix>10.11.162.68</a:IPPrefix>
+           <a:IPPrefix>10.11.162.40</a:IPPrefix>
          </ManagementAddress>
          <HwSku>Force10-Z9100</HwSku>
       </Device>

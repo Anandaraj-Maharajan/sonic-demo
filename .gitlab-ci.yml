@@ -6,12 +6,12 @@ stages:
 validate:
   stage: test
   script:
-    - ansible-playbook generate_config.yml -e "topology=t1 platform=Z9100 tor=20 leaf=8 spine=4" --diff --check
+    - ansible-playbook generate_config.yml -e "topology=t1 platform=Z9100" --diff --check
 
 minigraph files:
   stage: generate
   script: 
-    - ansible-playbook generate_config.yml -e "topology=t1 platform=Z9100 tor=20 leaf=8 spine=4" --diff
+    - ansible-playbook generate_config.yml -e "topology=t1 platform=Z9100" --diff
 
 onfiguration:
   stage: deploy
